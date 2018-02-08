@@ -6,7 +6,6 @@ namespace SAREhub\EasyECA\Action;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use SAREhub\Client\Processor\Processor;
-use SAREhub\Eca\ActionProcessorFactory;
 
 class ActionParserTest extends TestCase
 {
