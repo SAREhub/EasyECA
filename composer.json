@@ -13,12 +13,12 @@
     "phpunit/phpunit": "6.*",
     "mockery/mockery": "1.*",
     "apigen/apigen": "dev-master",
-    "roave/better-reflection": "dev-master#c87d856"
+    "roave/better-reflection": "dev-master#c87d856",
+    "codeclimate/php-test-reporter": "dev-master"
   },
   "require": {
     "php": "^7.1",
-    "sarehub/client": "0.4.*",
-    "codeclimate/php-test-reporter": "dev-master'
+    "sarehub/client": "0.4.*"
   },
   "autoload": {
     "psr-4": {
