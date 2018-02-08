@@ -2,16 +2,14 @@
 
 namespace SAREhub\EasyECA\Rule;
 
-use SAREhub\Eca\RuleDefinition;
-
 interface RuleAsserter
 {
     /**
      * Checks rule condition in given context
-     * @param RuleDefinition $rule
+     * @param mixed $condition
      * @param array $context
      * @return bool
      */
-    public function assert(RuleDefinition $rule, array $context): bool;
+    public function assert($condition, array $context): bool;
 
 }
