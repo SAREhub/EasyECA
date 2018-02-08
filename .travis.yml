@@ -1,0 +1,23 @@
+sudo: false
+language: php
+php:
+- 7.1
+branches:
+  only:
+  - master
+cache:
+  directories:
+  - "$HOME/.composer/cache/files"
+install:
+- mv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
+- composer update --no-interaction --prefer-dist
+- mv ~/xdebug.ini /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+script:
+- phpunit --testsuite unit --coverage-clover build/logs/clover.xml
+after_script:
+- vendor/bin/test-reporter
+after_success:
+- bash .travis_gen_apidocs.sh
+addons:
+ code_climate:
+  repo_token: "$CODECLIMATE_TOKEN"

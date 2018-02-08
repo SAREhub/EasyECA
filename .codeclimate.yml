@@ -1,0 +1,26 @@
+engines:
+ phpcodesniffer:
+  enabled: true
+  config:
+   file_extensions: "php"
+   standard: "PSR1,PSR2"
+   ignore_warnings: false
+   encoding: utf-8
+ duplication:
+  enabled: true
+  config:
+   languages:
+   - php
+ fixme:
+  enabled: true
+ phpmd:
+  enabled: true
+  config:
+   file_extensions: "php"
+   rulesets: "unusedcode,codesize,controversial,design,cleancode,phpmd-ruleset.xml"
+ratings:
+ paths:
+ - "**.inc"
+ - "**.php"
+exclude_paths:
+- tests/
