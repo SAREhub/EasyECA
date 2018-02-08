@@ -1,9 +1,8 @@
 <?php
 
-namespace SAREhub\Eca;
+namespace SAREhub\EasyECA\Action;
 
 use SAREhub\Client\Processor\Processor;
-use SAREhub\EasyECA\Action\ActionDefinition;
 
 interface ActionProcessorFactory
 {
