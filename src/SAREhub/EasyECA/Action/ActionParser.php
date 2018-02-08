@@ -5,9 +5,8 @@ namespace SAREhub\EasyECA\Action;
 
 
 use SAREhub\Client\Processor\Processor;
-use SAREhub\Eca\ActionProcessorFactory;
 
-class ActionDefinitionParser
+class ActionParser
 {
     /**
      * @var ActionProcessorFactory[]
