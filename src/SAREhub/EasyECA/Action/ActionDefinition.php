@@ -4,7 +4,6 @@ namespace SAREhub\EasyECA\Action;
 
 class ActionDefinition
 {
-
     /**
      * @var string
      */
@@ -21,9 +20,9 @@ class ActionDefinition
         $this->parameters = $parameters;
     }
 
-    public static function createNullDefinition()
+    public static function createNopDefinition(): self
     {
-        return new ActionDefinition("null");
+        return new ActionDefinition("nop");
     }
 
     public static function createFromArray(array $data)
@@ -42,7 +41,7 @@ class ActionDefinition
         return $this->parameters;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'action' => $this->getAction(),
