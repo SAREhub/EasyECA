@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use SAREhub\Client\Processor\NullProcessor;
 use SAREhub\EasyECA\Action\ActionDefinition;
 
-class NopProcessorFactoryTest extends TestCase
+class NopActionProcessorFactoryTest extends TestCase
 {
 
     public function testCreate()
