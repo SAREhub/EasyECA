@@ -2,6 +2,8 @@
 
 namespace SAREhub\EasyECA\Action;
 
+use OutOfBoundsException;
+
 class ActionDefinition
 {
     /**
@@ -35,6 +37,24 @@ class ActionDefinition
         return $this->action;
     }
 
+    /**
+     * @param string $name
+     * @return mixed
+     * @throws OutOfBoundsException When parameter not found
+     */
+    public function getParameter(string $name)
+    {
+        if ($this->hasParameter($name)) {
+            return $this->parameters[$name];
+        }
+
+        throw new OutOfBoundsException("Action parameter: '$name' not found");
+    }
+
+    public function hasParameter(string $name): bool
+    {
+        return isset($this->parameters[$name]);
+    }
 
     public function getParameters(): array
     {
