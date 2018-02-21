@@ -21,22 +21,11 @@ class RuleDefinition implements \JsonSerializable
      */
     private $onFail;
 
-    public function __construct($condition, ?ActionDefinition $onPass, ?ActionDefinition $onFail)
+    public function __construct($condition, ?ActionDefinition $onPass = null, ?ActionDefinition $onFail = null)
     {
         $this->condition = $condition;
         $this->onPass = $onPass ?? ActionDefinition::createNopDefinition();
         $this->onFail = $onFail ?? ActionDefinition::createNopDefinition();
-    }
-
-    /**
-     * @param array $data
-     * @return RuleDefinition
-     */
-    public static function createFromArray(array $data)
-    {
-        $onPass = isset($data['onPass']) ? ActionDefinition::createFromArray($data['onPass']) : null;
-        $onFail = isset($data['onFail']) ? ActionDefinition::createFromArray($data['onFail']) : null;
-        return new self($data["condition"], $onPass, $onFail);
     }
 
     public function getCondition()

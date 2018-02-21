@@ -5,6 +5,7 @@ namespace SAREhub\EasyECA;
 use SAREhub\Client\Processor\Processor;
 use SAREhub\Client\Processor\Processors;
 use SAREhub\EasyECA\Action\ActionDefinition;
+use SAREhub\EasyECA\Action\ActionDefinitionFactory;
 use SAREhub\EasyECA\Action\ActionParser;
 use SAREhub\EasyECA\Action\ActionProcessorFactory;
 
@@ -14,13 +15,19 @@ class MultiActionProcessorFactory implements ActionProcessorFactory
     const ACTIONS_PARAMETER = "actions";
 
     /**
+     * @var ActionDefinitionFactory
+     */
+    private $actionDefinitionFactory;
+
+    /**
      * @var ActionParser
      */
     private $actionParser;
 
-    public function __construct(ActionParser $actionParser)
+    public function __construct(ActionParser $actionParser, ActionDefinitionFactory $actionDefinitionFactory)
     {
         $this->actionParser = $actionParser;
+        $this->actionDefinitionFactory = $actionDefinitionFactory;
     }
 
     public function create(ActionDefinition $actionDefinition): Processor
@@ -35,6 +42,7 @@ class MultiActionProcessorFactory implements ActionProcessorFactory
 
     private function parseAction(array $action): Processor
     {
-        return $this->actionParser->parse(ActionDefinition::createFromArray($action));
+        $actionDefinition = $this->actionDefinitionFactory->create($action);
+        return $this->actionParser->parse($actionDefinition);
     }
 }

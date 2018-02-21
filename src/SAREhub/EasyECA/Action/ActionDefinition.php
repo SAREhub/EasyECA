@@ -28,11 +28,6 @@ class ActionDefinition implements \JsonSerializable
         return new ActionDefinition("nop");
     }
 
-    public static function createFromArray(array $data)
-    {
-        return new self($data['action'], isset($data['parameters']) ? $data['parameters'] : []);
-    }
-
     public function getAction(): string
     {
         return $this->action;

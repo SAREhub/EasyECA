@@ -9,6 +9,7 @@ use SAREhub\Client\Processor\NullProcessor;
 use SAREhub\Client\Processor\Pipeline;
 use SAREhub\Client\Processor\Processors;
 use SAREhub\EasyECA\Action\ActionDefinition;
+use SAREhub\EasyECA\Action\ActionDefinitionFactory;
 use SAREhub\EasyECA\Action\ActionParser;
 use SAREhub\EasyECA\Action\ActionProcessorFactory;
 
@@ -16,6 +17,11 @@ class MultiActionProcessorFactoryTest extends TestCase
 {
 
     use MockeryPHPUnitIntegration;
+
+    /**
+     * @var MockInterface | ActionDefinitionFactory
+     */
+    private $actionDefinitionFactory;
 
     /**
      * @var MockInterface | ActionParser
@@ -29,8 +35,11 @@ class MultiActionProcessorFactoryTest extends TestCase
 
     protected function setUp()
     {
-        $this->actionParser = \Mockery::mock(ActionParser::class)->shouldIgnoreMissing(Processors::blackhole());
-        $this->factory = new MultiActionProcessorFactory($this->actionParser);
+        $this->actionParser = \Mockery::mock(ActionParser::class)
+            ->shouldIgnoreMissing(Processors::blackhole());
+        $this->actionDefinitionFactory = \Mockery::mock(ActionDefinitionFactory::class)
+            ->shouldIgnoreMissing(new ActionDefinition("test"));
+        $this->factory = new MultiActionProcessorFactory($this->actionParser, $this->actionDefinitionFactory);
     }
 
     public function testCreateThenReturnInstanceOfPipeline()
@@ -41,20 +50,27 @@ class MultiActionProcessorFactoryTest extends TestCase
 
     public function testCreateThenCreatedProcessorHasActionProcessors()
     {
+        $actionDefinition = $this->createActionDefinition();
+
+        $subActionDefinition = new ActionDefinition("test_action");
+        $this->actionDefinitionFactory->expects("create")
+            ->withArgs([["test_action"]])
+            ->andReturn($subActionDefinition);
+
         $subActionProcessor = new NullProcessor();
-        $this->actionParser->expects("parse")->withArgs(function (ActionDefinition $definition) {
-            return $definition->getAction() == "action_1";
-        })->andReturn($subActionProcessor);
+        $this->actionParser->expects("parse")->withArgs([$subActionDefinition])->andReturn($subActionProcessor);
 
         /** @var Pipeline $processor */
-        $processor = $this->factory->create($this->createActionDefinition());
+        $processor = $this->factory->create($actionDefinition);
         $this->assertEquals([$subActionProcessor], $processor->getProcessors());
     }
 
     private function createActionDefinition(): ActionDefinition
     {
         return new ActionDefinition("test", [
-            MultiActionProcessorFactory::ACTIONS_PARAMETER => [["action" => "action_1"]]
+            "actions" => [
+                ["test_action"]
+            ]
         ]);
     }
 
