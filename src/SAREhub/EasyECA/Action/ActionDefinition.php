@@ -4,8 +4,9 @@ namespace SAREhub\EasyECA\Action;
 
 use OutOfBoundsException;
 
-class ActionDefinition
+class ActionDefinition implements \JsonSerializable
 {
+
     /**
      * @var string
      */
@@ -59,6 +60,11 @@ class ActionDefinition
     public function getParameters(): array
     {
         return $this->parameters;
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 
     public function toArray(): array
