@@ -21,15 +21,25 @@ class CheckRuleActionProcessorFactory implements ActionProcessorFactory
      */
     private $asserterService;
 
-    public function __construct(RuleAsserterService $asserterService, ActionParser $actionParser)
+    /**
+     * @var RuleDefinitionFactory
+     */
+    private $ruleDefinitionFactory;
+
+    public function __construct(
+        RuleDefinitionFactory $ruleDefinitionFactory,
+        RuleAsserterService $asserterService,
+        ActionParser $actionParser
+    )
     {
+        $this->ruleDefinitionFactory = $ruleDefinitionFactory;
         $this->asserterService = $asserterService;
         $this->actionParser = $actionParser;
     }
 
     public function create(ActionDefinition $actionDefinition): Processor
     {
-        $rule = RuleDefinition::createFromArray($actionDefinition->getParameter("rule"));
+        $rule = $this->ruleDefinitionFactory->create($actionDefinition->getParameter("rule"));
         $processor = new CheckRuleProcessor($this->asserterService, $rule->getCondition());
         $processor->setOnPass($this->createAction($rule->getOnPass()));
         $processor->setOnFail($this->createAction($rule->getOnFail()));

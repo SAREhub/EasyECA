@@ -27,15 +27,27 @@ class CheckRuleActionProcessorFactoryTest extends TestCase
     private $actionParser;
 
     /**
+     * @var MockInterface | RuleDefinitionFactory
+     */
+    private $ruleDefinitionFactory;
+
+    /**
      * @var CheckRuleActionProcessorFactory
      */
     private $factory;
 
     protected function setUp()
     {
+        $this->ruleDefinitionFactory = \Mockery::mock(RuleDefinitionFactory::class)
+            ->shouldIgnoreMissing(new RuleDefinition("", null, null));
+
         $this->asserterService = \Mockery::mock(RuleAsserterService::class);
         $this->actionParser = \Mockery::mock(ActionParser::class)->shouldIgnoreMissing(new NullProcessor());
-        $this->factory = new CheckRuleActionProcessorFactory($this->asserterService, $this->actionParser);
+        $this->factory = new CheckRuleActionProcessorFactory(
+            $this->ruleDefinitionFactory,
+            $this->asserterService,
+            $this->actionParser
+        );
     }
 
     public function testCreateThenReturnProcessor()
@@ -53,8 +65,14 @@ class CheckRuleActionProcessorFactoryTest extends TestCase
 
     public function testCreateThenCreatedProcessorHasConditionFromAction()
     {
+        $actionDefinition = $this->createActionDefinition();
+        $ruleDefinition = new RuleDefinition("test_condition", null, null);
+        $this->ruleDefinitionFactory->expects("create")
+            ->withArgs([$actionDefinition->getParameter("rule")])
+            ->andReturn($ruleDefinition);
+
         /** @var CheckRuleProcessor $processor */
-        $processor = $this->factory->create($this->createActionDefinition());
+        $processor = $this->factory->create($actionDefinition);
         $this->assertEquals("test_condition", $processor->getCondition());
     }
 
@@ -62,9 +80,10 @@ class CheckRuleActionProcessorFactoryTest extends TestCase
     {
         $actionDefinition = $this->createActionDefinition();
         $onPass = \Mockery::mock(Processor::class);
-        $this->actionParser->expects("parse")->withArgs(function (ActionDefinition $definition) {
-            return $definition->getAction() == "test_onPass" && $definition->getParameters() == ["test_onPass"];
-        })->andReturn($onPass);
+
+        $ruleDefinition = new RuleDefinition("", new ActionDefinition("onPass"), null);
+        $this->ruleDefinitionFactory->expects("create")->andReturn($ruleDefinition);
+        $this->actionParser->expects("parse")->withArgs([$ruleDefinition->getOnPass()])->andReturn($onPass);
 
         /** @var CheckRuleProcessor $processor */
         $processor = $this->factory->create($actionDefinition);
@@ -76,10 +95,12 @@ class CheckRuleActionProcessorFactoryTest extends TestCase
     {
         $actionDefinition = $this->createActionDefinition();
         $onFail = \Mockery::mock(Processor::class);
+
+        $ruleDefinition = new RuleDefinition("", new ActionDefinition("onPass"), null);
+        $this->ruleDefinitionFactory->expects("create")->andReturn($ruleDefinition);
+
         $this->actionParser->expects("parse")->andReturn(new NullProcessor());
-        $this->actionParser->expects("parse")->withArgs(function (ActionDefinition $definition) {
-            return $definition->getAction() == "test_onFail" && $definition->getParameters() == ["test_onFail"];
-        })->andReturn($onFail);
+        $this->actionParser->expects("parse")->withArgs([$ruleDefinition->getOnFail()])->andReturn($onFail);
 
         /** @var CheckRuleProcessor $processor */
         $processor = $this->factory->create($actionDefinition);
@@ -89,16 +110,6 @@ class CheckRuleActionProcessorFactoryTest extends TestCase
 
     private function createActionDefinition(): ActionDefinition
     {
-        return new ActionDefinition("test", ["rule" => [
-            "condition" => "test_condition",
-            "onPass" => [
-                "action" => "test_onPass",
-                "parameters" => ["test_onPass"]
-            ],
-            "onFail" => [
-                "action" => "test_onFail",
-                "parameters" => ["test_onFail"]
-            ]
-        ]]);
+        return new ActionDefinition("test", ["rule" => ["test_rule"]]);
     }
 }
