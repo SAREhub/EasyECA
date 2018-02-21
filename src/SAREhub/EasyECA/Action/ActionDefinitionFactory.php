@@ -13,7 +13,7 @@ class ActionDefinitionFactory
         }
 
         if (empty($data["action"])) {
-            throw new \InvalidArgumentException("ActionDefinition data needs 'action' value");
+            throw new \InvalidArgumentException("ActionDefinition data is invalid: empty action");
         }
 
         return new ActionDefinition($data["action"], $data["parameters"] ?? []);

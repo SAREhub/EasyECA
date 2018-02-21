@@ -33,11 +33,11 @@ class ActionDefinitionFactoryTest extends TestCase
         ];
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("ActionDefinition data needs 'action' value");
+        $this->expectExceptionMessage("ActionDefinition data is invalid: empty action");
         $this->factory->create($data);
     }
 
-    public function testCreateWhenActionIsEmptyThenThrowException()
+    public function testCreateWhenActionValueIsEmptyThenThrowException()
     {
         $data = [
             "action" => "",
@@ -45,7 +45,7 @@ class ActionDefinitionFactoryTest extends TestCase
         ];
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("ActionDefinition data needs 'action' value");
+        $this->expectExceptionMessage("ActionDefinition data is invalid: empty action");
         $this->factory->create($data);
     }
 
