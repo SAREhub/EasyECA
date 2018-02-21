@@ -6,7 +6,6 @@ use SAREhub\EasyECA\Action\ActionDefinition;
 
 class RuleDefinition implements \JsonSerializable
 {
-
     /**
      * @var mixed
      */
@@ -55,6 +54,11 @@ class RuleDefinition implements \JsonSerializable
         return $this->onFail;
     }
 
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
     public function toArray()
     {
         return [
@@ -62,10 +66,5 @@ class RuleDefinition implements \JsonSerializable
             'onPass' => $this->getOnPass() ? $this->getOnPass()->toArray() : null,
             'onFail' => $this->getOnFail() ? $this->getOnFail()->toArray() : null
         ];
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
     }
 }
