@@ -12,6 +12,7 @@ class MultiActionProcessorFactory implements ActionProcessorFactory
 {
 
     const ACTIONS_PARAMETER = "actions";
+
     /**
      * @var ActionParser
      */
@@ -24,7 +25,6 @@ class MultiActionProcessorFactory implements ActionProcessorFactory
 
     public function create(ActionDefinition $actionDefinition): Processor
     {
-
         $pipeline = Processors::pipeline();
         foreach ($actionDefinition->getParameter(self::ACTIONS_PARAMETER) as $action) {
             $pipeline->add($this->parseAction($action));
