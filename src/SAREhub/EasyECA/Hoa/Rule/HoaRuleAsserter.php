@@ -5,7 +5,6 @@ namespace SAREhub\EasyECA\Hoa\Rule;
 
 use Hoa\Ruler\Context;
 use Hoa\Ruler\Ruler;
-use SAREhub\EasyECA\Rule\RuleAssertContextFactory;
 use SAREhub\EasyECA\Rule\RuleAsserter;
 use SAREhub\EasyECA\Rule\RuleAssertException;
 
@@ -16,20 +15,18 @@ class HoaRuleAsserter implements RuleAsserter
      */
     private $ruler;
 
-    /**
-     * @var RuleAssertContextFactory
-     */
-    private $contextFactory;
-
-    /**
-     *
-     * @param Ruler $ruler
-     */
     public function __construct(Ruler $ruler)
     {
         $this->ruler = $ruler;
     }
 
+    /**
+     * @param mixed $condition
+     * @param array $context
+     * @return bool
+     * @throws RuleAssertException
+     * @throws \Hoa\Ruler\Exception
+     */
     public function assert($condition, array $context): bool
     {
         try {
@@ -37,6 +34,5 @@ class HoaRuleAsserter implements RuleAsserter
         } catch (\Exception $e) {
             throw new RuleAssertException("Hoa assert exception occurred", 500, $e);
         }
-
     }
 }
