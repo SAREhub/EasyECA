@@ -13,8 +13,7 @@
     "phpunit/phpunit": "6.*",
     "mockery/mockery": "1.*",
     "apigen/apigen": "dev-master",
-    "roave/better-reflection": "dev-master#c87d856",
-    "codeclimate/php-test-reporter": "dev-master"
+    "roave/better-reflection": "dev-master#c87d856"
   },
   "require": {
     "php": "^7.1",
