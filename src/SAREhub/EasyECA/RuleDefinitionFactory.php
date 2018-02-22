@@ -17,7 +17,7 @@ class RuleDefinitionFactory
     {
         $this->actionDefinitionFactory = $actionDefinitionFactory;
     }
-
+    
     public function create(array $data): RuleDefinition
     {
         if (empty($data["condition"])) {
