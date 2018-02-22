@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SAREhub\EasyECA\Rule;
 
 use SAREhub\Client\Processor\Processor;

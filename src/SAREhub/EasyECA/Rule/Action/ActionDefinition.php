@@ -2,6 +2,7 @@
 
 namespace SAREhub\EasyECA\Rule\Action;
 
+
 use OutOfBoundsException;
 
 class ActionDefinition implements \JsonSerializable

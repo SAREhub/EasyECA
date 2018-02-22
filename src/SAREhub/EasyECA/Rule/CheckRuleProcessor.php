@@ -98,5 +98,4 @@ class CheckRuleProcessor implements Processor
     {
         return 'CheckRule[' . $this->getRule() . ' ? ' . $this->getOnPass() . ' : ' . $this->getOnFail() . ']';
     }
-
 }

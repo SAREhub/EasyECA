@@ -12,5 +12,4 @@ interface RuleAsserter
      * @throws RuleAssertException
      */
     public function assert($condition, array $context): bool;
-
 }

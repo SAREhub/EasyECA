@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SAREhub\EasyECA\Rule\Action;
 
 
@@ -46,5 +45,4 @@ class ActionParser
     {
         return isset($this->factories[$action]);
     }
-
 }

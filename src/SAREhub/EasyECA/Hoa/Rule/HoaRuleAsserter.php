@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SAREhub\EasyECA\Hoa\Rule;
 
 use Hoa\Ruler\Context;

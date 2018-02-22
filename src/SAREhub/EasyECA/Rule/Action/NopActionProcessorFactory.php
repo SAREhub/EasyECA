@@ -2,7 +2,6 @@
 
 namespace SAREhub\EasyECA\Rule\Action;
 
-
 use SAREhub\Client\Processor\NullProcessor;
 use SAREhub\Client\Processor\Processor;
 
