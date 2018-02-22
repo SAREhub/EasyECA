@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SAREhub\EasyECA\Action;
+namespace SAREhub\EasyECA\Rule\Action;
 
 
 use SAREhub\Client\Processor\Processor;

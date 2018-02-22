@@ -1,6 +1,6 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule\Action;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
@@ -8,10 +8,6 @@ use PHPUnit\Framework\TestCase;
 use SAREhub\Client\Processor\NullProcessor;
 use SAREhub\Client\Processor\Pipeline;
 use SAREhub\Client\Processor\Processors;
-use SAREhub\EasyECA\Action\ActionDefinition;
-use SAREhub\EasyECA\Action\ActionDefinitionFactory;
-use SAREhub\EasyECA\Action\ActionParser;
-use SAREhub\EasyECA\Action\ActionProcessorFactory;
 
 class MultiActionProcessorFactoryTest extends TestCase
 {
@@ -19,17 +15,17 @@ class MultiActionProcessorFactoryTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @var MockInterface | ActionDefinitionFactory
+     * @var MockInterface | \SAREhub\EasyECA\Rule\Action\ActionDefinitionFactory
      */
     private $actionDefinitionFactory;
 
     /**
-     * @var MockInterface | ActionParser
+     * @var MockInterface | \SAREhub\EasyECA\Rule\Action\ActionParser
      */
     private $actionParser;
 
     /**
-     * @var ActionProcessorFactory
+     * @var \SAREhub\EasyECA\Rule\Action\ActionProcessorFactory
      */
     private $factory;
 

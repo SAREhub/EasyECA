@@ -1,10 +1,9 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule\Action;
 
 use PHPUnit\Framework\TestCase;
 use SAREhub\Client\Processor\NullProcessor;
-use SAREhub\EasyECA\Action\ActionDefinition;
 
 class NopActionProcessorFactoryTest extends TestCase
 {

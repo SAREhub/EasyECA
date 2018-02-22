@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SAREhub\EasyECA\Action;
+namespace SAREhub\EasyECA\Rule\Action;
 
 
 class ActionDefinitionFactory

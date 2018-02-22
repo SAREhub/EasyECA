@@ -1,12 +1,10 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule;
 
 use SAREhub\Client\Message\Exchange;
 use SAREhub\Client\Processor\NullProcessor;
 use SAREhub\Client\Processor\Processor;
-use SAREhub\EasyECA\Rule\Rule;
-use SAREhub\EasyECA\Rule\RuleAsserterService;
 
 class CheckRuleProcessor implements Processor
 {

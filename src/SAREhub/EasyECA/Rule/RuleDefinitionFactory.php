@@ -1,15 +1,15 @@
 <?php
 
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule;
 
 
-use SAREhub\EasyECA\Action\ActionDefinitionFactory;
+use SAREhub\EasyECA\Rule\Action\ActionDefinitionFactory;
 
 class RuleDefinitionFactory
 {
     /**
-     * @var ActionDefinitionFactory
+     * @var \SAREhub\EasyECA\Rule\Action\ActionDefinitionFactory
      */
     private $actionDefinitionFactory;
 
@@ -17,7 +17,7 @@ class RuleDefinitionFactory
     {
         $this->actionDefinitionFactory = $actionDefinitionFactory;
     }
-    
+
     public function create(array $data): RuleDefinition
     {
         if (empty($data["condition"])) {

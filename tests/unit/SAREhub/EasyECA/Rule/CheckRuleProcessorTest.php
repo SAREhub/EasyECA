@@ -1,13 +1,12 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use SAREhub\Client\Message\BasicExchange;
 use SAREhub\Client\Processor\Processor;
-use SAREhub\EasyECA\Rule\RuleAsserterService;
 
 class CheckRuleProcessorTest extends TestCase
 {

@@ -1,12 +1,10 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule\Action;
 
 
 use SAREhub\Client\Processor\NullProcessor;
 use SAREhub\Client\Processor\Processor;
-use SAREhub\EasyECA\Action\ActionDefinition;
-use SAREhub\EasyECA\Action\ActionProcessorFactory;
 
 class NopActionProcessorFactory implements ActionProcessorFactory
 {

@@ -1,13 +1,9 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule\Action;
 
 use SAREhub\Client\Processor\Processor;
 use SAREhub\Client\Processor\Processors;
-use SAREhub\EasyECA\Action\ActionDefinition;
-use SAREhub\EasyECA\Action\ActionDefinitionFactory;
-use SAREhub\EasyECA\Action\ActionParser;
-use SAREhub\EasyECA\Action\ActionProcessorFactory;
 
 class MultiActionProcessorFactory implements ActionProcessorFactory
 {
@@ -20,7 +16,7 @@ class MultiActionProcessorFactory implements ActionProcessorFactory
     private $actionDefinitionFactory;
 
     /**
-     * @var ActionParser
+     * @var \SAREhub\EasyECA\Rule\Action\ActionParser
      */
     private $actionParser;
 

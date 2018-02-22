@@ -1,10 +1,10 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule;
 
 use SAREhub\Client\Processor\Processor;
-use SAREhub\EasyECA\Action\ActionDefinition;
-use SAREhub\EasyECA\Action\ActionProcessorFactory;
+use SAREhub\EasyECA\Rule\Action\ActionDefinition;
+use SAREhub\EasyECA\Rule\Action\ActionProcessorFactory;
 
 class CheckRuleActionProcessorFactory implements ActionProcessorFactory
 {

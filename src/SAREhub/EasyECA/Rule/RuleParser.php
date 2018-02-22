@@ -1,12 +1,11 @@
 <?php
 
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule;
 
 use SAREhub\Client\Processor\Processor;
-use SAREhub\EasyECA\Action\ActionDefinition;
-use SAREhub\EasyECA\Action\ActionParser;
-use SAREhub\EasyECA\Rule\RuleAsserterService;
+use SAREhub\EasyECA\Rule\Action\ActionDefinition;
+use SAREhub\EasyECA\Rule\Action\ActionParser;
 
 class RuleParser
 {

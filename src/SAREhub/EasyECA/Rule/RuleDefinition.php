@@ -1,8 +1,8 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule;
 
-use SAREhub\EasyECA\Action\ActionDefinition;
+use SAREhub\EasyECA\Rule\Action\ActionDefinition;
 
 class RuleDefinition implements \JsonSerializable
 {

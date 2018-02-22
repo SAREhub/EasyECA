@@ -1,14 +1,13 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use SAREhub\Client\Processor\Processors;
-use SAREhub\EasyECA\Action\ActionDefinition;
-use SAREhub\EasyECA\Action\ActionParser;
-use SAREhub\EasyECA\Rule\RuleAsserterService;
+use SAREhub\EasyECA\Rule\Action\ActionDefinition;
+use SAREhub\EasyECA\Rule\Action\ActionParser;
 
 class RuleParserTest extends TestCase
 {

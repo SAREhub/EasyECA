@@ -1,6 +1,6 @@
 <?php
 
-namespace SAREhub\EasyECA\Action;
+namespace SAREhub\EasyECA\Rule\Action;
 
 use PHPUnit\Framework\TestCase;
 

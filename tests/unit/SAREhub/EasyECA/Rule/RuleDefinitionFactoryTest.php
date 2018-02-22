@@ -1,12 +1,12 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
-use SAREhub\EasyECA\Action\ActionDefinition;
-use SAREhub\EasyECA\Action\ActionDefinitionFactory;
+use SAREhub\EasyECA\Rule\Action\ActionDefinition;
+use SAREhub\EasyECA\Rule\Action\ActionDefinitionFactory;
 
 class RuleDefinitionFactoryTest extends TestCase
 {
@@ -14,7 +14,7 @@ class RuleDefinitionFactoryTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @var MockInterface | ActionDefinitionFactory
+     * @var MockInterface | \SAREhub\EasyECA\Rule\Action\ActionDefinitionFactory
      */
     private $actionDefinitionFactory;
 

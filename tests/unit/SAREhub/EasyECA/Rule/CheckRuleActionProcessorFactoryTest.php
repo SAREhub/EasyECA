@@ -1,11 +1,11 @@
 <?php
 
-namespace SAREhub\EasyECA;
+namespace SAREhub\EasyECA\Rule;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
-use SAREhub\EasyECA\Action\ActionDefinition;
+use SAREhub\EasyECA\Rule\Action\ActionDefinition;
 
 class CheckRuleActionProcessorFactoryTest extends TestCase
 {
