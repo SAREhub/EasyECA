@@ -12,10 +12,14 @@ install:
 - mv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
 - composer update --no-interaction --prefer-dist
 - mv ~/xdebug.ini /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
 - phpunit --testsuite unit --coverage-clover build/logs/clover.xml
 after_script:
-- vendor/bin/test-reporter
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 after_success:
 - bash .travis_gen_apidocs.sh
 addons:
