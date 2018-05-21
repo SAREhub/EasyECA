@@ -5,6 +5,8 @@ namespace SAREhub\EasyECA\Rule;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use SAREhub\EasyECA\Rule\Definition\RuleDefinition;
+use SAREhub\EasyECA\Rule\Definition\RuleGroupDefinition;
 
 class RuleGroupParserTest extends TestCase
 {

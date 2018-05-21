@@ -6,6 +6,7 @@ namespace SAREhub\EasyECA\Rule;
 
 use SAREhub\Client\Processor\MulticastProcessor;
 use SAREhub\Client\Processor\Processors;
+use SAREhub\EasyECA\Rule\Definition\RuleGroupDefinition;
 
 class RuleGroupParser
 {

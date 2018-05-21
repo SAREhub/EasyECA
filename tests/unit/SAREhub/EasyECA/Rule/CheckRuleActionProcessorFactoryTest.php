@@ -6,6 +6,8 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use SAREhub\EasyECA\Rule\Action\ActionDefinition;
+use SAREhub\EasyECA\Rule\Definition\RuleDefinition;
+use SAREhub\EasyECA\Rule\Definition\RuleDefinitionFactory;
 
 class CheckRuleActionProcessorFactoryTest extends TestCase
 {
