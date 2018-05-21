@@ -24,7 +24,6 @@ class HoaRuleAsserter implements RuleAsserter
      * @param array $context
      * @return bool
      * @throws RuleAssertException
-     * @throws \Hoa\Ruler\Exception
      */
     public function assert($condition, array $context): bool
     {
