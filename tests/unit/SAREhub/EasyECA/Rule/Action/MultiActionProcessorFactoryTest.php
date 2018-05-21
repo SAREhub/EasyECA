@@ -5,6 +5,7 @@ namespace SAREhub\EasyECA\Rule\Action;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use SAREhub\Client\Processor\MulticastProcessor;
 use SAREhub\Client\Processor\NullProcessor;
 use SAREhub\Client\Processor\Pipeline;
 use SAREhub\Client\Processor\Processors;
@@ -41,7 +42,7 @@ class MultiActionProcessorFactoryTest extends TestCase
     public function testCreateThenReturnInstanceOfPipeline()
     {
         $processor = $this->factory->create($this->createActionDefinition());
-        $this->assertInstanceOf(Pipeline::class, $processor);
+        $this->assertInstanceOf(MulticastProcessor::class, $processor);
     }
 
     public function testCreateThenCreatedProcessorHasActionProcessors()
