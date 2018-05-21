@@ -5,6 +5,7 @@ namespace SAREhub\EasyECA\Rule;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use SAREhub\Client\Processor\Processor;
 use SAREhub\Client\Processor\Processors;
 use SAREhub\EasyECA\Rule\Action\ActionDefinition;
 use SAREhub\EasyECA\Rule\Action\ActionParser;
@@ -33,60 +34,28 @@ class RuleParserTest extends TestCase
     {
         $this->asserterService = \Mockery::mock(RuleAsserterService::class);
         $this->actionParser = \Mockery::mock(ActionParser::class)->shouldIgnoreMissing(Processors::blackhole());
-
         $this->parser = new RuleParser($this->asserterService, $this->actionParser);
     }
 
     public function testParseThenReturnProcessor()
     {
-        $ruleDefintion = new RuleDefinition("");
+        $ruleDefinition = new RuleDefinition("test_condition", new ActionDefinition("onPass"), new ActionDefinition("onFail"));
+        $expectedOnPass = $this->actionParserExpectsParse($ruleDefinition->getOnPass());
+        $expectedOnFail = $this->actionParserExpectsParse($ruleDefinition->getOnFail());
 
-        $processor = $this->parser->parse($ruleDefintion);
+        $processor = $this->parser->parse($ruleDefinition);
+
         $this->assertInstanceOf(CheckRuleProcessor::class, $processor);
+        $this->assertSame($this->asserterService, $processor->getAsserterService(), "asserterService");
+        $this->assertEquals("test_condition", $processor->getCondition(), "condition");
+        $this->assertSame($expectedOnPass, $processor->getOnPass(), "onPass");
+        $this->assertSame($expectedOnFail, $processor->getOnFail(), "onFail");
     }
 
-    public function testParseThenCreatedProcessorHasAsserterService()
+    private function actionParserExpectsParse(ActionDefinition $actionDefinition): Processor
     {
-        $ruleDefinition = new RuleDefinition("");
-
-        /** @var CheckRuleProcessor $processor */
-        $processor = $this->parser->parse($ruleDefinition);
-        $this->assertSame($this->asserterService, $processor->getAsserterService());
-    }
-
-    public function testParseThenCreatedProcessorHasConditionFromAction()
-    {
-        $ruleDefinition = new RuleDefinition("test_condition", null, null);
-
-        /** @var CheckRuleProcessor $processor */
-        $processor = $this->parser->parse($ruleDefinition);
-        $this->assertEquals("test_condition", $processor->getCondition());
-    }
-
-    public function testParseThenCreatedProcessorHasOnPassFromAction()
-    {
-        $ruleDefinition = new RuleDefinition("", new ActionDefinition("onPass"), null);
-
-        $expectedOnPass = Processors::blackhole();
-        $this->actionParser->expects("parse")->withArgs([$ruleDefinition->getOnPass()])->andReturn($expectedOnPass);
-
-        /** @var CheckRuleProcessor $processor */
-        $processor = $this->parser->parse($ruleDefinition);
-
-        $this->assertSame($expectedOnPass, $processor->getOnPass());
-    }
-
-    public function testParseThenCreatedProcessorHasOnFailFromAction()
-    {
-        $ruleDefinition = new RuleDefinition("", null, new ActionDefinition("onFail"));
-        $this->actionParser->expects("parse")->andReturn(Processors::blackhole());
-
-        $expectedOnFail = Processors::blackhole();
-        $this->actionParser->expects("parse")->withArgs([$ruleDefinition->getOnFail()])->andReturn($expectedOnFail);
-
-        /** @var CheckRuleProcessor $processor */
-        $processor = $this->parser->parse($ruleDefinition);
-
-        $this->assertSame($expectedOnFail, $processor->getOnFail());
+        $return = Processors::blackhole();
+        $this->actionParser->expects("parse")->withArgs([$actionDefinition])->andReturn($return);
+        return $return;
     }
 }
