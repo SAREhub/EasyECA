@@ -15,7 +15,7 @@ class HttpRuleLoaderTest extends TestCase
 
     public function testLoadThenReturnRulesInArray()
     {
-        $responseBody = '{"a":{"rules":{"0":{"type":"event"}}}}';
+        $responseBody = '{"a":{"rules":[{"type":"event"}]}}';
 
         /** @var Client | MockInterface $client */
         $client = \Mockery::mock(Client::class);

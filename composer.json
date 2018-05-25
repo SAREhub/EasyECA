@@ -19,7 +19,8 @@
   "require": {
     "php": "^7.1",
     "sarehub/client": "0.4.*",
-    "hoa/ruler": "~2.0"
+    "hoa/ruler": "~2.0",
+    "guzzlehttp/guzzle": "^6.2"
   },
   "autoload": {
     "psr-4": {
