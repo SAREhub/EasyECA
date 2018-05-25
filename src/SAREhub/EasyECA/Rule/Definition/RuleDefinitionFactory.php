@@ -7,7 +7,7 @@ use SAREhub\EasyECA\Rule\Action\ActionDefinitionFactory;
 class RuleDefinitionFactory
 {
     /**
-     * @var \SAREhub\EasyECA\Rule\Action\ActionDefinitionFactory
+     * @var ActionDefinitionFactory
      */
     private $actionDefinitionFactory;
 
