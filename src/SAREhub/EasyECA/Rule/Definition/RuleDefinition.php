@@ -48,7 +48,7 @@ class RuleDefinition implements \JsonSerializable
         return $this->toArray();
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'condition' => $this->getCondition(),
