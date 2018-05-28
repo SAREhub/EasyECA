@@ -7,6 +7,7 @@ use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use SAREhub\Client\Message\BasicExchange;
 use SAREhub\Client\Processor\Processor;
+use SAREhub\EasyECA\Rule\Asserter\RuleAsserterService;
 
 class CheckRuleProcessorTest extends TestCase
 {

@@ -9,6 +9,7 @@ use SAREhub\Client\Processor\Processor;
 use SAREhub\Client\Processor\Processors;
 use SAREhub\EasyECA\Rule\Action\ActionDefinition;
 use SAREhub\EasyECA\Rule\Action\ActionParser;
+use SAREhub\EasyECA\Rule\Asserter\RuleAsserterService;
 use SAREhub\EasyECA\Rule\Definition\RuleDefinition;
 
 class RuleParserTest extends TestCase

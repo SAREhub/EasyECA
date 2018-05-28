@@ -4,6 +4,7 @@ namespace SAREhub\EasyECA\Rule;
 
 use SAREhub\Client\Message\Exchange;
 use SAREhub\Client\Processor\Processor;
+use SAREhub\EasyECA\Rule\Asserter\RuleAsserterService;
 
 class CheckRuleProcessor implements Processor
 {
