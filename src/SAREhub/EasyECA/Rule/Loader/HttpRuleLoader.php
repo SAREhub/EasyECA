@@ -5,11 +5,7 @@ namespace SAREhub\EasyECA\Rule\Loader;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
-use SAREhub\EasyECA\Rule\Action\ActionDefinitionFactory;
-use SAREhub\EasyECA\Rule\Definition\EventRuleGroupsDefinition;
 use SAREhub\EasyECA\Rule\Definition\EventRuleGroupsDefinitionFactory;
-use SAREhub\EasyECA\Rule\Definition\RuleDefinition;
-use SAREhub\EasyECA\Rule\Definition\RuleGroupDefinition;
 use SAREhub\EasyECA\Rule\Loader\ParsingStrategy\HttpResponseParsingStrategy;
 
 class HttpRuleLoader implements EventRulesLoader
