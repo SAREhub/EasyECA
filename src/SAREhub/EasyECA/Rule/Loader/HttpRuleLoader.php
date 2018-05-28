@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use SAREhub\EasyECA\Rule\Action\ActionDefinitionFactory;
 use SAREhub\EasyECA\Rule\Definition\EventRuleGroupsDefinition;
+use SAREhub\EasyECA\Rule\Definition\EventRuleGroupsDefinitionFactory;
 use SAREhub\EasyECA\Rule\Definition\RuleDefinition;
 use SAREhub\EasyECA\Rule\Definition\RuleGroupDefinition;
 use SAREhub\EasyECA\Rule\Loader\ParsingStrategy\HttpResponseParsingStrategy;
@@ -29,20 +30,20 @@ class HttpRuleLoader implements EventRulesLoader
     private $strategy;
 
     /**
-     * @var ActionDefinitionFactory
+     * @var EventRuleGroupsDefinitionFactory
      */
-    private $actionDefinitionFactory;
+    private $eventRuleGroupsDefinitionFactory;
 
     public function __construct(
         Client $client,
         string $url,
         HttpResponseParsingStrategy $strategy,
-        ActionDefinitionFactory $factory
+        EventRuleGroupsDefinitionFactory $factory
     ) {
         $this->client = $client;
         $this->url = $url;
         $this->strategy = $strategy;
-        $this->actionDefinitionFactory = $factory;
+        $this->eventRuleGroupsDefinitionFactory = $factory;
     }
 
     public function load(): array
@@ -60,30 +61,8 @@ class HttpRuleLoader implements EventRulesLoader
     {
         $eventGroups = [];
         foreach ($parsedData as $eventType => $ruleGroupsData) {
-            $ruleGroups = $this->getRuleGroupsData($ruleGroupsData);
-            $eventGroups[] = new EventRuleGroupsDefinition($eventType, $ruleGroups);
+            $eventGroups[] = $this->eventRuleGroupsDefinitionFactory->create($eventType, $ruleGroupsData);
         }
         return $eventGroups;
-    }
-
-    protected function getRuleGroupsData($ruleGroupsData): array
-    {
-        $ruleGroups = [];
-        foreach ($ruleGroupsData as $campaignId => $rulesData) {
-            $rules = $this->getRulesData($rulesData, $campaignId);
-            $ruleGroups[] = new RuleGroupDefinition($campaignId, $rules);
-        }
-        return $ruleGroups;
-    }
-
-    protected function getRulesData($rulesData, $campaignId): array
-    {
-        $rules = [];
-        foreach ($rulesData as $ruleRow) {
-            $rules[] = new RuleDefinition($ruleRow[$campaignId],
-                $this->actionDefinitionFactory->create($ruleRow["onPass"]),
-                $this->actionDefinitionFactory->create($ruleRow["onFail"]));
-        }
-        return $rules;
     }
 }
