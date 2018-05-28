@@ -38,15 +38,8 @@ class EventRuleGroupsDefinitionFactoryTest extends TestCase
             ]
         ];
 
-        $expectedRuleGroupDefinition = new RuleGroupDefinition("test_id", [new RuleDefinition("test_condition")]);
-        $this->ruleGroupFactory->expects("create")->withArgs([
-            [
-                "id" => "test_id",
-                "rules" => [
-                    ["rule_1"]
-                ]
-            ]
-        ])->andReturn($expectedRuleGroupDefinition);
+        $expectedRuleGroupDefinition = \Mockery::mock(RuleGroupDefinition::class);
+        $this->ruleGroupFactory->expects("create")->withArgs([$data[0]])->andReturn($expectedRuleGroupDefinition);
 
         $eventGroup = $this->factory->create("event", $data);
         $this->assertEquals("event", $eventGroup->getEventType());

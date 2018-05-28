@@ -23,14 +23,4 @@ class EventRuleGroupsDefinitionFactory
         }
         return new EventRuleGroupsDefinition($eventType, $ruleGroups);
     }
-
-    protected function getRuleGroupData(array $data)
-    {
-        return $data[$this->getEventType($data)];
-    }
-
-    protected function getEventType(array $data)
-    {
-        return array_keys($data)[0];
-    }
 }
