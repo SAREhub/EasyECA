@@ -29,7 +29,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "SAREhub\\": "tests/SAREhub"
+      "SAREhub\\": "tests/SAREhub",
+      "SAREhub\\Example\\": "examples"
     }
   }
 }
