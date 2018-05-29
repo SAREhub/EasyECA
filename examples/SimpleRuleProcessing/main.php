@@ -10,7 +10,7 @@ use SAREhub\EasyECA\Rule\Asserter\ExchangeInBodyRuleAssertContextFactory;
 use SAREhub\EasyECA\Rule\Asserter\RuleAsserterService;
 use SAREhub\EasyECA\Rule\Definition\RuleDefinitionFactory;
 use SAREhub\EasyECA\Rule\RuleParser;
-use SAREhub\Example\SimpleRuleProcessing\EchoActionProcessorFactory;
+use SAREhub\Example\Util\EchoActionProcessorFactory;
 
 require dirname(__DIR__) . "/bootstrap.php";
 

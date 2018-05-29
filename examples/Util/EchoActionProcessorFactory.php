@@ -1,6 +1,6 @@
 <?php
 
-namespace SAREhub\Example\SimpleRuleProcessing;
+namespace SAREhub\Example\Util;
 
 
 use SAREhub\Client\Processor\Processor;
