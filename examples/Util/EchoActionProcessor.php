@@ -19,6 +19,6 @@ class EchoActionProcessor implements Processor
 
     public function process(Exchange $exchange)
     {
-        echo $this->message;
+        echo $this->message . "\n";
     }
 }
