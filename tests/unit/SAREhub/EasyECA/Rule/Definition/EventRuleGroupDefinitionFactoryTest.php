@@ -7,7 +7,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 
-class EventRuleGroupsDefinitionFactoryTest extends TestCase
+class EventRuleGroupDefinitionFactoryTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
@@ -17,32 +17,25 @@ class EventRuleGroupsDefinitionFactoryTest extends TestCase
     private $ruleGroupFactory;
 
     /**
-     * @var EventRuleGroupsDefinitionFactory
+     * @var EventRuleGroupDefinitionFactory
      */
     private $factory;
 
     protected function setUp()
     {
         $this->ruleGroupFactory = \Mockery::mock(RuleGroupDefinitionFactory::class);
-        $this->factory = new EventRuleGroupsDefinitionFactory($this->ruleGroupFactory);
+        $this->factory = new EventRuleGroupDefinitionFactory($this->ruleGroupFactory);
     }
 
     public function testCreate()
     {
-        $data = [
-            [
-                "id" => "test_id",
-                "rules" => [
-                    ["rule_1"]
-                ]
-            ]
-        ];
+        $data = ["rule_group_data"];
 
         $expectedRuleGroupDefinition = \Mockery::mock(RuleGroupDefinition::class);
-        $this->ruleGroupFactory->expects("create")->withArgs([$data[0]])->andReturn($expectedRuleGroupDefinition);
+        $this->ruleGroupFactory->expects("create")->withArgs([$data])->andReturn($expectedRuleGroupDefinition);
 
         $eventGroup = $this->factory->create("event", $data);
         $this->assertEquals("event", $eventGroup->getEventType());
-        $this->assertEquals([$expectedRuleGroupDefinition], $eventGroup->getRuleGroups());
+        $this->assertEquals($expectedRuleGroupDefinition, $eventGroup->getRuleGroup());
     }
 }

@@ -4,7 +4,7 @@
 namespace SAREhub\EasyECA\Rule\Definition;
 
 
-class EventRuleGroupsDefinition implements \JsonSerializable
+class EventRuleGroupDefinition implements \JsonSerializable
 {
     /**
      * @var string
@@ -12,15 +12,15 @@ class EventRuleGroupsDefinition implements \JsonSerializable
     private $eventType;
 
     /**
-     * @var RuleGroupDefinition[]
+     * @var RuleGroupDefinition
      */
-    private $ruleGroups;
+    private $ruleGroup;
 
 
-    public function __construct(string $eventType, array $ruleGroups)
+    public function __construct(string $eventType, RuleGroupDefinition $ruleGroup)
     {
         $this->eventType = $eventType;
-        $this->ruleGroups = $ruleGroups;
+        $this->ruleGroup = $ruleGroup;
     }
 
     public function jsonSerialize()
@@ -32,7 +32,7 @@ class EventRuleGroupsDefinition implements \JsonSerializable
     {
         return [
             "eventType" => $this->getEventType(),
-            "ruleGroups" => $this->getRuleGroups()
+            "ruleGroup" => $this->getRuleGroup()
         ];
     }
 
@@ -41,8 +41,8 @@ class EventRuleGroupsDefinition implements \JsonSerializable
         return $this->eventType;
     }
 
-    public function getRuleGroups(): array
+    public function getRuleGroup(): RuleGroupDefinition
     {
-        return $this->ruleGroups;
+        return $this->ruleGroup;
     }
 }
