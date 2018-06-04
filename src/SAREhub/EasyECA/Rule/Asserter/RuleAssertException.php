@@ -6,4 +6,3 @@ class RuleAssertException extends \Exception
 {
 
 }
-
