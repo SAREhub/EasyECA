@@ -10,4 +10,3 @@ interface RuleAssertContextFactory
      */
     public function create($data): array;
 }
-
