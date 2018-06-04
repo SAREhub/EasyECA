@@ -5,7 +5,6 @@ namespace SAREhub\EasyECA\Hoa\Rule\Asserter;
 use Hoa\Ruler\Context;
 use Hoa\Ruler\Ruler;
 use SAREhub\EasyECA\Rule\Asserter\RuleAsserter;
-use SAREhub\EasyECA\Rule\Asserter\RuleAssertException;
 
 class HoaRuleAsserter implements RuleAsserter
 {
@@ -34,3 +33,4 @@ class HoaRuleAsserter implements RuleAsserter
         }
     }
 }
+

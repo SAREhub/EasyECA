@@ -29,5 +29,4 @@ class HttpGetRequestCommand
     {
         return $this->client->get($this->uri);
     }
-
 }

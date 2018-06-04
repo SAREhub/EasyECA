@@ -45,3 +45,4 @@ class ActionParser
         return isset($this->factories[$action]);
     }
 }
+

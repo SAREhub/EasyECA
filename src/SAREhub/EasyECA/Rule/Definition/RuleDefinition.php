@@ -57,3 +57,4 @@ class RuleDefinition implements \JsonSerializable
         ];
     }
 }
+

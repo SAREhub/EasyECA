@@ -51,6 +51,4 @@ class RuleGroupDefinition implements \JsonSerializable
             'rules' => $this->getRules()
         ];
     }
-
-
 }

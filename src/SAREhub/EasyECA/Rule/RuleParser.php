@@ -38,3 +38,4 @@ class RuleParser
         return $this->actionParser->parse($definition);
     }
 }
+

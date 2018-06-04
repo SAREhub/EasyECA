@@ -13,3 +13,4 @@ interface RuleAsserter
      */
     public function assert($condition, array $context): bool;
 }
+
