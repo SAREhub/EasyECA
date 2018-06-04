@@ -1,6 +1,5 @@
 <?php
 
-
 namespace SAREhub\EasyECA\Event;
 
 use SAREhub\Client\Message\Exchange;
