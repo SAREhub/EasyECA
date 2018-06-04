@@ -1,8 +1,6 @@
 <?php
 
-
 namespace SAREhub\EasyECA\Rule\Definition;
-
 
 class RuleGroupDefinitionFactory
 {
