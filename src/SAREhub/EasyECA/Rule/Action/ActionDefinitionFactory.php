@@ -17,4 +17,3 @@ class ActionDefinitionFactory
         return new ActionDefinition($data["action"], $data["parameters"] ?? []);
     }
 }
-
