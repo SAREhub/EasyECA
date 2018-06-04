@@ -24,3 +24,4 @@ ratings:
  - "**.php"
 exclude_paths:
 - tests/
+- examples/
