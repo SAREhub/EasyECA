@@ -41,4 +41,3 @@ class RuleAsserterService
         return $this->assertContextFactory->create($data);
     }
 }
-
