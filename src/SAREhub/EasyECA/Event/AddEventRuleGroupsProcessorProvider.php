@@ -3,7 +3,6 @@
 
 namespace SAREhub\EasyECA\Event;
 
-
 use SAREhub\Client\Processor\Processor;
 use SAREhub\Client\Processor\Processors;
 use SAREhub\Client\Processor\SplittingStrategy;

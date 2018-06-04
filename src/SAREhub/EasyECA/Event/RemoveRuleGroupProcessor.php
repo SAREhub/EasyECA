@@ -3,7 +3,6 @@
 
 namespace SAREhub\EasyECA\Event;
 
-
 use SAREhub\Client\Message\Exchange;
 use SAREhub\Client\Processor\Processor;
 use SAREhub\EasyECA\Rule\EventRuleGroupManager;

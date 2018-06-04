@@ -33,4 +33,3 @@ class HoaRuleAsserter implements RuleAsserter
         }
     }
 }
-

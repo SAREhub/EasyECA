@@ -3,7 +3,6 @@
 
 namespace SAREhub\EasyECA\Event;
 
-
 class RuleGroupChangedEvent
 {
     /**
