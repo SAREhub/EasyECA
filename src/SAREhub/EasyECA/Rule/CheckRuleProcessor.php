@@ -3,8 +3,8 @@
 namespace SAREhub\EasyECA\Rule;
 
 use SAREhub\Client\Message\Exchange;
-use SAREhub\Client\Processor\NullProcessor;
 use SAREhub\Client\Processor\Processor;
+use SAREhub\EasyECA\Rule\Asserter\RuleAsserterService;
 
 class CheckRuleProcessor implements Processor
 {
@@ -29,12 +29,12 @@ class CheckRuleProcessor implements Processor
      */
     private $onFail;
 
-    public function __construct(RuleAsserterService $asserterService, $condition)
+    public function __construct(RuleAsserterService $asserterService, $condition, Processor $onPass, Processor $onFail)
     {
         $this->asserterService = $asserterService;
         $this->condition = $condition;
-        $this->onPass = new NullProcessor();
-        $this->onFail = new NullProcessor();
+        $this->onPass = $onPass;
+        $this->onFail = $onFail;
     }
 
     public function process(Exchange $exchange)
@@ -71,31 +71,10 @@ class CheckRuleProcessor implements Processor
     }
 
     /**
-     * @param Processor $onPass
-     */
-    public function setOnPass(Processor $onPass)
-    {
-        $this->onPass = $onPass;
-    }
-
-    /**
      * @return Processor
      */
     public function getOnFail(): Processor
     {
         return $this->onFail;
-    }
-
-    /**
-     * @param Processor $onFail
-     */
-    public function setOnFail(Processor $onFail): void
-    {
-        $this->onFail = $onFail;
-    }
-
-    public function __toString()
-    {
-        return 'CheckRule[' . $this->getRule() . ' ? ' . $this->getOnPass() . ' : ' . $this->getOnFail() . ']';
     }
 }

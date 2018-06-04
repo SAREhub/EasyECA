@@ -1,6 +1,6 @@
 <?php
 
-namespace SAREhub\EasyECA\Rule;
+namespace SAREhub\EasyECA\Rule\Asserter;
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;

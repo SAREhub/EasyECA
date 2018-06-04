@@ -1,6 +1,6 @@
 <?php
 
-namespace SAREhub\EasyECA\Rule;
+namespace SAREhub\EasyECA\Rule\Definition;
 
 use SAREhub\EasyECA\Rule\Action\ActionDefinition;
 
@@ -48,7 +48,7 @@ class RuleDefinition implements \JsonSerializable
         return $this->toArray();
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'condition' => $this->getCondition(),

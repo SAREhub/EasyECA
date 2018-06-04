@@ -28,12 +28,12 @@ class MultiActionProcessorFactory implements ActionProcessorFactory
 
     public function create(ActionDefinition $actionDefinition): Processor
     {
-        $pipeline = Processors::pipeline();
+        $processor = Processors::multicast();
         foreach ($actionDefinition->getParameter(self::ACTIONS_PARAMETER) as $action) {
-            $pipeline->add($this->parseAction($action));
+            $processor->add($this->parseAction($action));
         }
 
-        return $pipeline;
+        return $processor;
     }
 
     private function parseAction(array $action): Processor

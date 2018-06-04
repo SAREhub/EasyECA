@@ -1,6 +1,6 @@
 <?php
 
-namespace SAREhub\EasyECA\Rule;
+namespace SAREhub\EasyECA\Rule\Asserter;
 
 class RuleAsserterService
 {

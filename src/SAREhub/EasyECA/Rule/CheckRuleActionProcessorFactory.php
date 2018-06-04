@@ -5,6 +5,7 @@ namespace SAREhub\EasyECA\Rule;
 use SAREhub\Client\Processor\Processor;
 use SAREhub\EasyECA\Rule\Action\ActionDefinition;
 use SAREhub\EasyECA\Rule\Action\ActionProcessorFactory;
+use SAREhub\EasyECA\Rule\Definition\RuleDefinitionFactory;
 
 class CheckRuleActionProcessorFactory implements ActionProcessorFactory
 {

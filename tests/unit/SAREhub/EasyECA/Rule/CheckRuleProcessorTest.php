@@ -7,6 +7,7 @@ use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use SAREhub\Client\Message\BasicExchange;
 use SAREhub\Client\Processor\Processor;
+use SAREhub\EasyECA\Rule\Asserter\RuleAsserterService;
 
 class CheckRuleProcessorTest extends TestCase
 {
@@ -19,6 +20,16 @@ class CheckRuleProcessorTest extends TestCase
     private $asserterService;
 
     /**
+     * @var MockInterface | Processor
+     */
+    private $onPass;
+
+    /**
+     * @var MockInterface | Processor
+     */
+    private $onFail;
+
+    /**
      * @var CheckRuleProcessor
      */
     private $processor;
@@ -26,45 +37,32 @@ class CheckRuleProcessorTest extends TestCase
     protected function setUp()
     {
         $this->asserterService = \Mockery::mock(RuleAsserterService::class);
-        $this->processor = new CheckRuleProcessor($this->asserterService, "test_condition");
+        $this->onPass = $this->createProcessor();
+        $this->onFail = $this->createProcessor();
+
+        $this->processor = new CheckRuleProcessor(
+            $this->asserterService,
+            "test_condition",
+            $this->onPass,
+            $this->onFail
+        );
     }
 
-    public function testProcessThenCallAsserterServiceAssert()
+    public function testProcessWhenAssertPassed()
     {
         $exchange = new BasicExchange();
-        $this->asserterService->expects("assert")->withArgs([$this->processor->getCondition(), $exchange]);
+        $this->asserterService->expects("assert")->withArgs(["test_condition", $exchange])->andReturn(true);
+        $this->onPass->expects("process")->withArgs([$exchange]);
+        $this->onFail->expects("process")->never();
         $this->processor->process($exchange);
     }
 
-    public function testProcessWhenAssertPassedThenOnPassProcess()
+    public function testProcessWhenAssertNotPassed()
     {
-        $onPass = $this->createProcessor();
-        $this->processor->setOnPass($onPass);
-        $this->asserterService->expects("assert")->andReturn(true);
-
         $exchange = new BasicExchange();
-        $onPass->expects("process")->withArgs([$exchange]);
-        $this->processor->process($exchange);
-    }
-
-    public function testProcessWhenAssertPassedThenNotCallOnFailProcess()
-    {
-        $onFail = $this->createProcessor();
-        $this->processor->setOnFail($onFail);
-        $this->asserterService->expects("assert")->andReturn(true);
-
-        $onFail->expects("process")->never();
-        $this->processor->process(new BasicExchange());
-    }
-
-    public function testProcessWhenAssertNotPassedThenOnFailProcess()
-    {
-        $onFail = $this->createProcessor();
-        $this->processor->setOnFail($onFail);
-        $this->asserterService->expects("assert")->andReturn(false);
-
-        $exchange = new BasicExchange();
-        $onFail->expects("process")->withArgs([$exchange]);
+        $this->asserterService->expects("assert")->withArgs(["test_condition", $exchange])->andReturn(false);
+        $this->onPass->expects("process")->never();
+        $this->onFail->expects("process")->withArgs([$exchange]);
         $this->processor->process($exchange);
     }
 
