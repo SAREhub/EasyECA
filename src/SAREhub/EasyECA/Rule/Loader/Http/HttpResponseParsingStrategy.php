@@ -2,7 +2,6 @@
 
 namespace SAREhub\EasyECA\Rule\Loader\Http;
 
-
 use Psr\Http\Message\ResponseInterface;
 use SAREhub\EasyECA\Rule\Definition\EventRuleGroupDefinition;
 
