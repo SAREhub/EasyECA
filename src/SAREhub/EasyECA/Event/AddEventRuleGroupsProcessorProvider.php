@@ -4,33 +4,36 @@
 namespace SAREhub\EasyECA\Event;
 
 
-use SAREhub\Client\Message\Exchange;
 use SAREhub\Client\Processor\Processor;
 use SAREhub\Client\Processor\Processors;
-use SAREhub\Commons\Misc\ArrayHelper;
+use SAREhub\Client\Processor\SplittingStrategy;
 use SAREhub\Commons\Misc\InvokableProvider;
 
 class AddEventRuleGroupsProcessorProvider extends InvokableProvider
 {
-    /**
-     * @var callable
-     */
-    private $eventTypeRulesGroupingStrategy;
 
-    public function __construct(callable $eventTypeRulesGroupingStrategy)
+    /**
+     * @var SplittingStrategy
+     */
+    private $eventTypeRulesSplittingStrategy;
+
+    /**
+     * @var Processor
+     */
+    private $addEventRuleGroup;
+
+    /**
+     * @param SplittingStrategy $eventTypeRulesSplittingStrategy
+     * @param Processor $addEventRuleGroup
+     */
+    public function __construct(SplittingStrategy $eventTypeRulesSplittingStrategy, Processor $addEventRuleGroup)
     {
-        $this->eventTypeRulesGroupingStrategy = $eventTypeRulesGroupingStrategy;
+        $this->eventTypeRulesSplittingStrategy = $eventTypeRulesSplittingStrategy;
+        $this->addEventRuleGroup = $addEventRuleGroup;
     }
 
     public function get(): Processor
     {
-        return Processors::pipeline()->addAll([
-            Processors::transform(function (Exchange $exchange) {
-                /** @var RuleGroupChangedEvent $event */
-                $event = $exchange->getIn()->getBody();
-                $groupedRules = ArrayHelper::groupBy($event->getRules(), $this->eventTypeRulesGroupingStrategy);
-                $exchange->getOut()->setBody($groupedRules);
-            })
-        ]);
+        return Processors::split($this->eventTypeRulesSplittingStrategy, $this->addEventRuleGroup);
     }
 }
