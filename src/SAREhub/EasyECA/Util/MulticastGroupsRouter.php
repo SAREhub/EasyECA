@@ -1,8 +1,6 @@
 <?php
 
-
 namespace SAREhub\EasyECA\Util;
-
 
 use SAREhub\Client\Message\Exchange;
 use SAREhub\Client\Processor\MulticastProcessor;

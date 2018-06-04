@@ -1,8 +1,6 @@
 <?php
 
-
 namespace SAREhub\EasyECA\Util;
-
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
