@@ -11,9 +11,14 @@ class ActionParser
      */
     private $factories;
 
-    public function __construct(array $actionProcessorFactories)
+    public function __construct(array $actionProcessorFactories = [])
     {
         $this->factories = $actionProcessorFactories;
+    }
+
+    public function addActionFactory(string $action, ActionProcessorFactory $factory)
+    {
+        $this->factories[$action] = $factory;
     }
 
     /**

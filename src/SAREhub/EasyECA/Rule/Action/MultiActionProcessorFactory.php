@@ -26,10 +26,10 @@ class MultiActionProcessorFactory implements ActionProcessorFactory
         $this->actionDefinitionFactory = $actionDefinitionFactory;
     }
 
-    public function create(ActionDefinition $actionDefinition): Processor
+    public function create(ActionDefinition $action): Processor
     {
         $processor = Processors::multicast();
-        foreach ($actionDefinition->getParameter(self::ACTIONS_PARAMETER) as $action) {
+        foreach ($action->getParameter(self::ACTIONS_PARAMETER) as $action) {
             $processor->add($this->parseAction($action));
         }
 

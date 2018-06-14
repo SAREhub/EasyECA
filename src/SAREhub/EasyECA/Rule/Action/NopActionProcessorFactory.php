@@ -8,7 +8,7 @@ use SAREhub\Client\Processor\Processor;
 class NopActionProcessorFactory implements ActionProcessorFactory
 {
 
-    public function create(ActionDefinition $actionDefinition): Processor
+    public function create(ActionDefinition $action): Processor
     {
         return new NullProcessor();
     }
