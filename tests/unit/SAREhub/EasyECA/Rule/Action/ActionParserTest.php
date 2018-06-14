@@ -15,9 +15,20 @@ class ActionParserTest extends TestCase
     public function testParseWhenActionProcessorFactoryExistsThenReturnProcessor()
     {
         $processorFactory = \Mockery::mock(ActionProcessorFactory::class);
-
         $actionDefinition = new ActionDefinition("test_action");
         $parser = new ActionParser(["test_action" => $processorFactory]);
+
+        $expectedProcessor = \Mockery::mock(Processor::class);
+        $processorFactory->expects("create")->withArgs([$actionDefinition])->andReturn($expectedProcessor);
+        $this->assertSame($expectedProcessor, $parser->parse($actionDefinition));
+    }
+
+    public function testAddActionFactory()
+    {
+        $processorFactory = \Mockery::mock(ActionProcessorFactory::class);
+        $actionDefinition = new ActionDefinition("test_action");
+        $parser = new ActionParser();
+        $parser->addActionFactory("test_action", $processorFactory);
 
         $expectedProcessor = \Mockery::mock(Processor::class);
         $processorFactory->expects("create")->withArgs([$actionDefinition])->andReturn($expectedProcessor);
@@ -27,7 +38,7 @@ class ActionParserTest extends TestCase
     public function testParseWhenActionProcessorFactoryNotExistsThenThrowException()
     {
         $actionDefinition = new ActionDefinition("test_action");
-        $parser = new ActionParser([]);
+        $parser = new ActionParser();
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("ActionProcessorFactory to action: 'test_action' not found");
