@@ -4,12 +4,10 @@ use Hoa\Ruler\Ruler;
 use SAREhub\Client\Message\BasicExchange;
 use SAREhub\Client\Message\BasicMessage;
 use SAREhub\Client\Message\Exchange;
-use SAREhub\Client\Message\Message;
 use SAREhub\Client\Processor\Processors;
-use SAREhub\Client\Processor\SplittingStrategy;
-use SAREhub\Commons\Misc\ArrayHelper;
 use SAREhub\EasyECA\Event\AddEventRuleGroupProcessor;
 use SAREhub\EasyECA\Event\AddEventRuleGroupsProcessorProvider;
+use SAREhub\EasyECA\Event\DefaultEventTypeRuleGroupsSplittingStrategy;
 use SAREhub\EasyECA\Event\ReconfigureRuleGroupProcessorProvider;
 use SAREhub\EasyECA\Event\RemoveRuleGroupProcessor;
 use SAREhub\EasyECA\Event\RuleGroupChangedEvent;
@@ -47,36 +45,8 @@ $eventRulesRouter = new MulticastGroupsRouter(function (Exchange $exchange) {
 });
 $eventRuleGroupManager = new EventRuleGroupManager($eventRulesRouter, $ruleGroupParser);
 
-$splittingStrategy = new class($eventRuleGroupDefinitionFactory) implements SplittingStrategy
-{
-    /**
-     * @var EventRuleGroupDefinitionFactory
-     */
-    private $definitionFactory;
+$splittingStrategy = new DefaultEventTypeRuleGroupsSplittingStrategy($eventRuleGroupDefinitionFactory);
 
-    public function __construct(EventRuleGroupDefinitionFactory $definitionFactory)
-    {
-        $this->definitionFactory = $definitionFactory;
-    }
-
-    public function split(Message $message): iterable
-    {
-        /** @var RuleGroupChangedEvent $event */
-        $event = $message->getBody();
-        $grouped = ArrayHelper::groupByKey($event->getRules(), "event");
-        $eventRuleGroupDefinitions = [];
-        foreach ($grouped as $eventType => $rules) {
-            $groupData = [
-                "id" => $event->getGroupId(),
-                "rules" => $rules
-            ];
-            $eventRuleGroupDefinitions[] = BasicExchange::withIn(
-                BasicMessage::withBody($this->definitionFactory->create($eventType, $groupData))
-            );
-        }
-        return $eventRuleGroupDefinitions;
-    }
-};
 $addEventRuleGroup = new AddEventRuleGroupProcessor($eventRuleGroupManager);
 $addEventRuleGroupsProcessorProvider = new AddEventRuleGroupsProcessorProvider($splittingStrategy, $addEventRuleGroup);
 $reconfigureProcessorProvider = new ReconfigureRuleGroupProcessorProvider(
