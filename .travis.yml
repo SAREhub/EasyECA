@@ -20,8 +20,8 @@ script:
 - phpunit --testsuite unit --coverage-clover build/logs/clover.xml
 after_script:
 - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-after_success:
-- bash .travis_gen_apidocs.sh
+#after_success:
+#- bash .travis_gen_apidocs.sh
 addons:
  code_climate:
   repo_token: "$CODECLIMATE_TOKEN"
