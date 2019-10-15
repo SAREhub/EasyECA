@@ -3,7 +3,6 @@
 
 namespace SAREhub\EasyECA\DI\Rule\Processor\ReloadRuleGroup;
 
-
 use SAREhub\Client\Message\Exchange;
 use SAREhub\EasyECA\Event\RuleGroupChangedEvent;
 

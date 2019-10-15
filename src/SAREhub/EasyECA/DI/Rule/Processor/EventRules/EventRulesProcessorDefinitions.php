@@ -3,7 +3,6 @@
 
 namespace SAREhub\EasyECA\DI\Rule\Processor\EventRules;
 
-
 use SAREhub\Client\DI\Processor\ProcessorDefinitionHelper;
 use SAREhub\Client\Event\EventHelper;
 use SAREhub\Client\Message\Exchange;

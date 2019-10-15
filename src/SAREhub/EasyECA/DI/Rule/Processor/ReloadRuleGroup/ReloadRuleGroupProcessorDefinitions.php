@@ -3,7 +3,6 @@
 
 namespace SAREhub\EasyECA\DI\Rule\Processor\ReloadRuleGroup;
 
-
 use SAREhub\Client\DI\Processor\ProcessorDefinitionHelper;
 use SAREhub\Client\Processor\TransformProcessor;
 use SAREhub\EasyECA\Event\AddEventRuleGroupProcessor;
