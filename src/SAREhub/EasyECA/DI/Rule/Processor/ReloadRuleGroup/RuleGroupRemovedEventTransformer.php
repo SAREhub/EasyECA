@@ -6,7 +6,7 @@ namespace SAREhub\EasyECA\DI\Rule\Processor\ReloadRuleGroup;
 use SAREhub\Client\Message\Exchange;
 use SAREhub\EasyECA\Event\RuleGroupRemovedEvent;
 
-abstract class RuleGroupRemovedEventTransformer
+class RuleGroupRemovedEventTransformer
 {
     /**
      * @var callable
