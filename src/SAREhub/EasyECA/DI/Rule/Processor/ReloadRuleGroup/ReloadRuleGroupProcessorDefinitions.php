@@ -57,28 +57,33 @@ abstract class ReloadRuleGroupProcessorDefinitions
 
     protected static function transformToReplaceEvent()
     {
-        $ruleGroupIdExtractor = ProcessorDefinitionHelper::closureValue(static::ruleGroupIdExtractor());
-        $rulesExtractor = ProcessorDefinitionHelper::closureValue(static::ruleGroupRulesExtractor());
+        $ruleGroupIdExtractor = static::wrapCallableFunction(static::ruleGroupIdExtractor());
+        $rulesExtractor = static::wrapCallableFunction(static::ruleGroupRulesExtractor());
         $transformer = create(RuleGroupChangedEventTransformer::class)
             ->constructor($ruleGroupIdExtractor, $rulesExtractor);
         return create(TransformProcessor::class)->constructor($transformer);
     }
 
+    protected static function transformToRemoveEvent()
+    {
+        $ruleGroupIdExtractor = static::wrapCallableFunction(static::ruleGroupIdExtractor());
+        $transformer = create(RuleGroupRemovedEventTransformer::class)->constructor($ruleGroupIdExtractor);
+        return create(TransformProcessor::class)->constructor($transformer);
+    }
+
     /**
-     * @return mixed Function to extract rule group id from in message body
+     * @return mixed|callable Function to extract rule group id from in message body
      */
     protected static abstract function ruleGroupIdExtractor();
 
     /**
-     * @return mixed Function to extract rule group rules from in message body
+     * @return mixed|callable Function to extract rule group rules from in message body
      */
     protected static abstract function ruleGroupRulesExtractor();
 
-    protected static function transformToRemoveEvent()
+    protected static function wrapCallableFunction($function)
     {
-        $ruleGroupIdExtractor = ProcessorDefinitionHelper::closureValue(static::ruleGroupIdExtractor());
-        $transformer = create(RuleGroupRemovedEventTransformer::class)->constructor($ruleGroupIdExtractor);
-        return create(TransformProcessor::class)->constructor($transformer);
+        return $function instanceOf \Closure ? ProcessorDefinitionHelper::closureValue($function) : $function;
     }
 
     protected static function reconfigureRuleGroupProcessorProvider()
