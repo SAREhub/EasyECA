@@ -6,18 +6,30 @@ namespace SAREhub\EasyECA\DI\Rule\Processor\ReloadRuleGroup;
 use SAREhub\Client\Message\Exchange;
 use SAREhub\EasyECA\Event\RuleGroupChangedEvent;
 
-abstract class RuleGroupChangedEventTransformer
+class RuleGroupChangedEventTransformer
 {
+    /**
+     * @var callable
+     */
+    private $groupIdExtractor;
+
+    /**
+     * @var callable
+     */
+    private $rulesExtractor;
+
+    public function __construct(callable $groupIdExtractor, callable $rulesExtractor)
+    {
+        $this->groupIdExtractor = $groupIdExtractor;
+        $this->rulesExtractor = $rulesExtractor;
+    }
+
     public function __invoke(Exchange $exchange)
     {
         $inBody = $exchange->getInBody();
-        $groupId = $this->extractGroupId($inBody);
-        $rules = $this->extractRules($inBody);
+        $groupId = ($this->groupIdExtractor)($inBody);
+        $rules = ($this->rulesExtractor)($inBody);
         $event = new RuleGroupChangedEvent($groupId, $rules);
         $exchange->getIn()->setBody($event);
     }
-
-    protected abstract function extractGroupId($inBody): string;
-
-    protected abstract function extractRules($inBody): array;
 }

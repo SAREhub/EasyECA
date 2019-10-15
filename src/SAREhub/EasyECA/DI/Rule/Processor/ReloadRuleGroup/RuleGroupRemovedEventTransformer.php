@@ -8,12 +8,20 @@ use SAREhub\EasyECA\Event\RuleGroupRemovedEvent;
 
 abstract class RuleGroupRemovedEventTransformer
 {
+    /**
+     * @var callable
+     */
+    private $groupIdExtractor;
+
+    public function __construct(callable $groupIdExtractor)
+    {
+        $this->groupIdExtractor = $groupIdExtractor;
+    }
+
     public function __invoke(Exchange $exchange)
     {
-        $groupId = $this->extractGroupId($exchange->getInBody());
+        $groupId = ($this->groupIdExtractor)($exchange->getInBody());
         $event = new RuleGroupRemovedEvent($groupId);
         $exchange->getIn()->setBody($event);
     }
-
-    public abstract function extractGroupId($inBody): string;
 }

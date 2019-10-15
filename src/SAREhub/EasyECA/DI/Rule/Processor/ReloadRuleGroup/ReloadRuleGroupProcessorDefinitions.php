@@ -57,17 +57,29 @@ abstract class ReloadRuleGroupProcessorDefinitions
 
     protected static function transformToReplaceEvent()
     {
-        return create(TransformProcessor::class)->constructor(static::ruleGroupChangedEventTransformer());
+        $ruleGroupIdExtractor = ProcessorDefinitionHelper::closureValue(static::ruleGroupIdExtractor());
+        $rulesExtractor = ProcessorDefinitionHelper::closureValue(static::ruleGroupRulesExtractor());
+        $transformer = create(RuleGroupChangedEventTransformer::class)
+            ->constructor($ruleGroupIdExtractor, $rulesExtractor);
+        return create(TransformProcessor::class)->constructor($transformer);
     }
 
-    protected static abstract function ruleGroupChangedEventTransformer();
+    /**
+     * @return mixed Function to extract rule group id from in message body
+     */
+    protected static abstract function ruleGroupIdExtractor();
+
+    /**
+     * @return mixed Function to extract rule group rules from in message body
+     */
+    protected static abstract function ruleGroupRulesExtractor();
 
     protected static function transformToRemoveEvent()
     {
-        return create(TransformProcessor::class)->constructor(static::ruleGroupRemovedEventTransformer());
+        $ruleGroupIdExtractor = ProcessorDefinitionHelper::closureValue(static::ruleGroupIdExtractor());
+        $transformer = create(RuleGroupRemovedEventTransformer::class)->constructor($ruleGroupIdExtractor);
+        return create(TransformProcessor::class)->constructor($transformer);
     }
-
-    protected static abstract function ruleGroupRemovedEventTransformer();
 
     protected static function reconfigureRuleGroupProcessorProvider()
     {
