@@ -4,7 +4,7 @@ namespace SAREhub\EasyECA\Hoa\Rule\Asserter;
 
 use Hoa\Ruler\Visitor\Asserter;
 
-class BasicRuleOperators
+class UtilRuleOperators implements RuleOperatorsInjector
 {
 
     /**
@@ -22,7 +22,7 @@ class BasicRuleOperators
         return null;
     }
 
-    public function registerInAsserter(Asserter $asserter)
+    public function injectToAsserter(Asserter $asserter): void
     {
         $asserter->setOperator("getvalueoffirstmatchedkeyinarray", [$this, "getValueOfFirstMatchedKeyInArray"]);
         $asserter->setOperator("strpos", "strpos");
