@@ -22,8 +22,8 @@ class ActionDefinitions
     {
         return [
             self::ENTRY_SUB_ACTION_PARSER => create(ActionParser::class)->constructor([]),
-            self::ENTRY_ACTION_FACTORIES => self::actionFactoriesDefinition(),
-            ActionParser::class => decorate(self::actionParserDecorator())
+            self::ENTRY_ACTION_FACTORIES => static::actionFactoriesDefinition(),
+            ActionParser::class => decorate(static::actionParserDecorator())
         ];
     }
 
@@ -43,7 +43,7 @@ class ActionDefinitions
     {
         return [
             "nop" => get(NopActionProcessorFactory::class),
-            "multi" => self::multiActionFactoryDefinition(),
+            "multi" => static::multiActionFactoryDefinition(),
         ];
     }
 
