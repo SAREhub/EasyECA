@@ -45,7 +45,7 @@ abstract class ReloadRuleGroupProcessorDefinitions
         return ProcessorDefinitionHelper::router($routingFunction, $routes);
     }
 
-    protected static abstract function actionRoutingFunction();
+    protected abstract static function actionRoutingFunction();
 
     protected static function actionTransformRoutes(): array
     {
@@ -74,16 +74,16 @@ abstract class ReloadRuleGroupProcessorDefinitions
     /**
      * @return mixed|callable Function to extract rule group id from in message body
      */
-    protected static abstract function ruleGroupIdExtractor();
+    protected abstract static function ruleGroupIdExtractor();
 
     /**
      * @return mixed|callable Function to extract rule group rules from in message body
      */
-    protected static abstract function ruleGroupRulesExtractor();
+    protected abstract static function ruleGroupRulesExtractor();
 
     protected static function wrapCallableFunction($function)
     {
-        return $function instanceOf \Closure ? ProcessorDefinitionHelper::closureValue($function) : $function;
+        return $function instanceof \Closure ? ProcessorDefinitionHelper::closureValue($function) : $function;
     }
 
     protected static function reconfigureRuleGroupProcessorProvider()
