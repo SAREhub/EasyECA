@@ -79,7 +79,7 @@ class EventRuleGroupManagerTest extends TestCase
         $ruleGroupId = "test_group_id";
         $this->router->allows("removeFromAll");
         $listener = \Mockery::mock(RemoveGroupFromAllEventsListener::class);
-        $this->manager->setRemoveRuleGroupListener($listener);
+        $this->manager->setRemoveGroupFromAllEvents($listener);
 
         $listener->expects("onRemoveGroupFromAllEvents")->with($ruleGroupId);
 
