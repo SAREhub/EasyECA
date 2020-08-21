@@ -57,7 +57,7 @@ class EventRuleGroupManager
         $this->addGroupListener = $listener;
     }
 
-    public function setRemoveRuleGroupListener(RemoveGroupFromAllEventsListener $listener): void
+    public function setRemoveGroupFromAllEvents(RemoveGroupFromAllEventsListener $listener): void
     {
         $this->removeGroupFromAllEventsListener = $listener;
     }
