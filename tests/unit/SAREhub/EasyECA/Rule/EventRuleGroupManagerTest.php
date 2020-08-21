@@ -54,7 +54,34 @@ class EventRuleGroupManagerTest extends TestCase
     {
         $ruleGroupId = "test_group_id";
 
-        $this->router->expects("removeFromAll")->withArgs(["test_group_id"]);
+        $this->router->expects("removeFromAll")->with("test_group_id");
+
+        $this->manager->removeGroupFromAllEvents($ruleGroupId);
+    }
+
+    public function testAddGroupWhenHasListener()
+    {
+        $ruleGroup = $this->createRuleGroup("test_group_id");
+        $definition = new EventRuleGroupDefinition("test_event_type", $ruleGroup);
+        $this->groupParser->allows("parse")->andReturn($this->createProcessor());
+        $this->router->allows("add");
+        $listener = \Mockery::mock(AddRuleGroupListener::class);
+        $this->manager->setAddRuleGroupListener($listener);
+
+        $listener->expects("onAddRuleGroup")->with($definition);
+
+        $this->manager->add($definition);
+
+    }
+
+    public function testRemoveFromAllWhenHasListener(): void
+    {
+        $ruleGroupId = "test_group_id";
+        $this->router->allows("removeFromAll");
+        $listener = \Mockery::mock(RemoveGroupFromAllEventsListener::class);
+        $this->manager->setRemoveRuleGroupListener($listener);
+
+        $listener->expects("onRemoveGroupFromAllEvents")->with($ruleGroupId);
 
         $this->manager->removeGroupFromAllEvents($ruleGroupId);
     }
